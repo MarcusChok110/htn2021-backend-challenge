@@ -1,10 +1,16 @@
 import express from 'express';
-import sqlite3 from 'sqlite3';
+import db from './db/index';
 
-const port = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
 
 const app = express();
 
-app.listen(port, () => {
-  console.log(`Example REST Express app listening at http://localhost:${port}`);
+app.listen(PORT, async () => {
+  try {
+    await db.authenticate();
+    await db.sync();
+    console.log('success');
+  } catch (error) {
+    console.error('failure', error);
+  }
 });
