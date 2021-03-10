@@ -19,7 +19,7 @@ const User = db.define<UserInstance>(
     name: { type: DataTypes.STRING },
     picture: { type: DataTypes.STRING },
     company: { type: DataTypes.STRING },
-    email: { type: DataTypes.STRING },
+    email: { type: DataTypes.STRING, unique: true, allowNull: false },
     phone: { type: DataTypes.STRING },
   },
   { timestamps: false }
