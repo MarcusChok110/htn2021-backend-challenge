@@ -1,7 +1,16 @@
 import db from '../db/index';
-import { DataTypes } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 
-const User = db.define('User', {
+export interface UserInstance extends Model {
+  id?: number;
+  name?: string;
+  picture?: string;
+  company?: string;
+  email?: string;
+  phone?: string;
+}
+
+const User = db.define<UserInstance>('User', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING },
   picture: { type: DataTypes.STRING },
