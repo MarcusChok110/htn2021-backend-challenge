@@ -1,4 +1,4 @@
-import User, { UserInstance } from '../models/userModel';
+import User, { UserAttributes } from '../models/userModel';
 
 const userService = {
   async findAll() {
@@ -7,7 +7,7 @@ const userService = {
   async findOne(id: number) {
     return await User.findOne({ where: { id } });
   },
-  async update(id: number, values: UserInstance) {
+  async update(id: number, values: UserAttributes) {
     return await User.update(values, { where: { id } });
   },
 };
