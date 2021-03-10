@@ -1,7 +1,7 @@
 import db from '../db/index';
 import { DataTypes, Model } from 'sequelize';
 
-export interface UserInstance extends Model {
+export interface UserAttributes {
   id?: number;
   name?: string;
   picture?: string;
@@ -10,13 +10,19 @@ export interface UserInstance extends Model {
   phone?: string;
 }
 
-const User = db.define<UserInstance>('User', {
-  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  name: { type: DataTypes.STRING },
-  picture: { type: DataTypes.STRING },
-  company: { type: DataTypes.STRING },
-  email: { type: DataTypes.STRING },
-  phone: { type: DataTypes.STRING },
-});
+export interface UserInstance extends Model, UserAttributes {}
+
+const User = db.define<UserInstance>(
+  'User',
+  {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    name: { type: DataTypes.STRING },
+    picture: { type: DataTypes.STRING },
+    company: { type: DataTypes.STRING },
+    email: { type: DataTypes.STRING },
+    phone: { type: DataTypes.STRING },
+  },
+  { timestamps: false }
+);
 
 export default User;
