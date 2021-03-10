@@ -1,7 +1,14 @@
 import db from '../db/index';
-import { DataTypes } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 
-const Skill = db.define('Skill', {
+export interface SkillInstance extends Model {
+  id?: number;
+  name?: string;
+  rating?: number;
+  user_id: number;
+}
+
+const Skill = db.define<SkillInstance>('Skill', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING },
   rating: { type: DataTypes.INTEGER },
