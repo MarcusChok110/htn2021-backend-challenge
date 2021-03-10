@@ -1,13 +1,19 @@
-import db from '../db/index';
 import fs from 'fs';
-import User from '../models/user';
 import path from 'path';
-import Skill from '../models/skill';
+import db from '../db/index';
+import Skill from '../models/skillModel';
+import User from '../models/userModel';
 
+/**
+ * Populates the sqlite database using the provided json file
+ */
 async function dbPopulate() {
+  // reset tables
   await db.authenticate();
   await db.sync({ force: true });
+
   const rawData = fs.readFileSync(
+    // to use relative path instead of default
     path.resolve(__dirname, '../../data/hacker-data-2021.json')
   );
   const users = JSON.parse(rawData.toString());
