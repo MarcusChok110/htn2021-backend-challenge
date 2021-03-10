@@ -19,14 +19,8 @@ async function dbPopulate() {
   const users = JSON.parse(rawData.toString());
 
   for (const user of users) {
-    const { company, email, name, phone, picture, skills } = user;
-    const savedUser = await User.create({
-      company,
-      email,
-      name,
-      phone,
-      picture,
-    });
+    const { skills } = user;
+    const savedUser = await User.create(user);
     for (const skill of skills) {
       Skill.create({ ...skill, user_id: savedUser.getDataValue('id') });
     }
