@@ -18,6 +18,7 @@ const Skill = db.define<SkillInstance>(
     rating: { type: DataTypes.INTEGER },
     user_id: {
       type: DataTypes.INTEGER,
+      onDelete: 'CASCADE',
       references: {
         model: 'Users',
         key: 'id',
