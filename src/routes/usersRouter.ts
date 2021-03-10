@@ -71,9 +71,12 @@ router.put('/:id', async (req, res) => {
   await user.reload();
 
   // for loop in place of .map so await can be used
-  for (const skill of skills) {
-    await skillService.save(id, skill);
+  if (Array.isArray(skills)) {
+    for (const skill of skills) {
+      await skillService.save(id, skill);
+    }
   }
+
   // update skills array with actual skill values from database
   const updatedSkills = await skillService.findAllFromUser(id);
 
