@@ -20,6 +20,27 @@ router.get('/', async (_req, res) => {
   res.json(response);
 });
 
+router.post('/', async (req, res) => {
+  const fields = req.body;
+  const { skills } = req.body;
+
+  if (!fields.name || !fields.email) {
+    res.status(400).send('Name and email required');
+    return;
+  }
+  const user = await userService.create(fields);
+
+  // indexing instead of "of" to modify array in place
+  for (let i = 0; i < skills.length; i++) {
+    skills[i] = await skillService.create(user.getDataValue('id'), skills[i]);
+  }
+
+  return res.json({
+    ...user.get(),
+    skills: skillService.extractSkills(skills),
+  });
+});
+
 router.get('/:id', async (req, res) => {
   const id = Number(req.params.id);
   const user = await userService.findOne(id);
@@ -51,7 +72,7 @@ router.put('/:id', async (req, res) => {
 
   // for loop in place of .map so await can be used
   for (const skill of skills) {
-    await skillService.updateOrCreate(id, skill);
+    await skillService.save(id, skill);
   }
   // update skills array with actual skill values from database
   const updatedSkills = await skillService.findAllFromUser(id);
@@ -59,6 +80,27 @@ router.put('/:id', async (req, res) => {
   return res.json({
     ...user.get(),
     skills: skillService.extractSkills(updatedSkills),
+  });
+});
+
+/**
+ * Deletes the user with given id and all associated skills (cascade)
+ */
+router.delete('/:id', async (req, res) => {
+  const id = Number(req.params.id);
+  const user = await userService.findOne(id);
+  const skills = await skillService.findAllFromUser(id);
+
+  if (!user) {
+    res.status(404).send('User not found');
+    return;
+  }
+
+  await userService.delete(id);
+
+  return res.json({
+    ...user.get(),
+    skills: skillService.extractSkills(skills),
   });
 });
 
