@@ -2,8 +2,7 @@
 
 This is a REST API made with Express and SQLite for Hack the North's backend coding challenge. By default, the application is hosted locally at http://localhost:5000.
 
-## Users Endpoints
-
+### Users Endpoints
 ---
 
 `GET /users/` - Returns information on all users
@@ -150,7 +149,7 @@ This is a REST API made with Express and SQLite for Hack the North's backend cod
     }
   ```
 
-## Skills Endpoints
+### Skills Endpoints
 
 ---
 
@@ -177,12 +176,12 @@ This is a REST API made with Express and SQLite for Hack the North's backend cod
 - **Example:**
   - `GET localhost:5000/skills/?min_frequency=5&max_frequency=10`
 
-## Local Installation
+### Local Installation
 
 ---
 
 1. Download the repository
-2. cd to the directory and npm install the dependencies:
+2. cd to the directory and `npm install` the dependencies:
 
 ```
     "cors"
@@ -192,6 +191,6 @@ This is a REST API made with Express and SQLite for Hack the North's backend cod
     "sqlite3"
 ```
 
-3. Run `npm run dbpopulate` to create and populate the local sqlite database
+3. Run `npm run dbpopulate` to create and populate the local SQLite database.
 4. Run `npm run build` and `npm start` to run the application in production mode or run `npm run dev` to run the application in development mode.
 5. The API should now be running on http://localhost:5000. Try out some API calls on postman or however else you feel!
