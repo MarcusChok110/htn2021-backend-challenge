@@ -3,6 +3,7 @@
 This is a REST API made with Express and SQLite for Hack the North's backend coding challenge. By default, the application is hosted locally at http://localhost:5000.
 
 ### Users Endpoints
+
 ---
 
 `GET /users/` - Returns information on all users
@@ -150,6 +151,7 @@ This is a REST API made with Express and SQLite for Hack the North's backend cod
   ```
 
 ### Skills Endpoints
+
 ---
 
 `GET /skills/` - Returns information on all users
@@ -175,7 +177,36 @@ This is a REST API made with Express and SQLite for Hack the North's backend cod
 - **Example:**
   - `GET localhost:5000/skills/?min_frequency=5&max_frequency=10`
 
+### Database Schemas
+
+---
+
+For this challenge, the SQLite database schema consists of two tables: users and skills. The schemas are as follows:
+
+#### **User**
+
+| id        | name   | picture | company | email  | phone  |
+| --------- | ------ | ------- | ------- | ------ | ------ |
+| `INTEGER` | `TEXT` | `TEXT`  | `TEXT`  | `TEXT` | `TEXT` |
+
+Notes:
+
+- `id` is the primary key and is auto-incremented.
+- `email` is not nullable, and must be unique.
+
+#### **Skills**
+
+| id        | name   | rating    | user_id   |
+| --------- | ------ | --------- | --------- |
+| `INTEGER` | `TEXT` | `INTEGER` | `INTEGER` |
+
+Notes:
+
+- `id` is the primary key and is auto-incremented.
+- `user_id` is a foreign key which references the `User` table's `id` key. On deletion, the skill cascades (i.e. deleting a user will delete all associated skills).
+
 ### Local Installation
+
 ---
 
 1. Download the repository
