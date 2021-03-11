@@ -1,4 +1,11 @@
+import db from '../db';
 import Skill, { SkillAttributes, SkillInstance } from '../models/skillModel';
+import fs from 'fs';
+import path from 'path';
+
+const freqQuery = fs
+  .readFileSync(path.resolve(__dirname, '../scripts/freqQuery.sql'))
+  .toString();
 
 const skillService = {
   async findAll() {
@@ -40,6 +47,33 @@ const skillService = {
    */
   async deleteByUserId(user_id: number) {
     return await Skill.destroy({ where: { user_id } });
+  },
+  /**
+   * Finds the frequency of the skills in the database >= min and <= max using
+   * raw SQL
+   */
+  async findFrequency(min?: number, max?: number) {
+    let query: string = freqQuery;
+
+    if (min && max) {
+      query = `
+      SELECT * FROM (${freqQuery}) 
+      WHERE frequency >= ${min} AND frequency <= ${max}
+      `;
+    } else if (min) {
+      query = `
+      SELECT * FROM (${freqQuery}) 
+      WHERE frequency >= ${min}
+      `;
+    } else if (max) {
+      query = `
+      SELECT * FROM (${freqQuery}) 
+      WHERE frequency <= ${max}
+      `;
+    }
+
+    const [results] = await db.query(query);
+    return results;
   },
 };
 
