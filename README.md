@@ -150,7 +150,6 @@ This is a REST API made with Express and SQLite for Hack the North's backend cod
   ```
 
 ### Skills Endpoints
-
 ---
 
 `GET /skills/` - Returns information on all users
@@ -177,7 +176,6 @@ This is a REST API made with Express and SQLite for Hack the North's backend cod
   - `GET localhost:5000/skills/?min_frequency=5&max_frequency=10`
 
 ### Local Installation
-
 ---
 
 1. Download the repository
