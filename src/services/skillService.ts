@@ -55,17 +55,17 @@ const skillService = {
   async findFrequency(min?: number, max?: number) {
     let query: string = freqQuery;
 
-    if (min && max) {
+    if (!Number.isNaN(min) && !Number.isNaN(max)) {
       query = `
       SELECT * FROM (${freqQuery}) 
       WHERE frequency >= ${min} AND frequency <= ${max}
       `;
-    } else if (min) {
+    } else if (!Number.isNaN(min)) {
       query = `
       SELECT * FROM (${freqQuery}) 
       WHERE frequency >= ${min}
       `;
-    } else if (max) {
+    } else if (!Number.isNaN(max)) {
       query = `
       SELECT * FROM (${freqQuery}) 
       WHERE frequency <= ${max}
