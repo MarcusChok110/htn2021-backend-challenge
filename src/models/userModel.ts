@@ -1,6 +1,9 @@
 import db from '../db/index';
 import { DataTypes, Model } from 'sequelize';
 
+/**
+ * Attributes to be mapped to columns for user table
+ */
 export interface UserAttributes {
   id?: number;
   name?: string;
@@ -12,6 +15,9 @@ export interface UserAttributes {
 
 export interface UserInstance extends Model, UserAttributes {}
 
+/**
+ * User model for user table in database
+ */
 const User = db.define<UserInstance>(
   'User',
   {

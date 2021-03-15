@@ -1,6 +1,9 @@
 import db from '../db/index';
 import { DataTypes, Model } from 'sequelize';
 
+/**
+ * Attributes to be mapped to columns for skill table
+ */
 export interface SkillAttributes {
   id?: number;
   name?: string;
@@ -10,6 +13,9 @@ export interface SkillAttributes {
 
 export interface SkillInstance extends Model, SkillAttributes {}
 
+/**
+ * Skill model for skill table in database
+ */
 const Skill = db.define<SkillInstance>(
   'Skill',
   {

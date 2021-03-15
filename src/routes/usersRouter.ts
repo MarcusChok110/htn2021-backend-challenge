@@ -2,8 +2,13 @@ import express from 'express';
 import skillService from '../services/skillService';
 import userService from '../services/userService';
 
+/**
+ * Router for users endpoint
+ */
 const router = express.Router();
 
+// GET /users
+// returns information on all users
 router.get('/', async (_req, res) => {
   let response = [];
   const users = await userService.findAll();
@@ -20,6 +25,10 @@ router.get('/', async (_req, res) => {
   res.json(response);
 });
 
+// POST /users
+// creates a new user in database
+// body is the same fields as user model attributes, as well as
+//   array of skills to be added with user
 router.post('/', async (req, res) => {
   const fields = req.body;
   const { skills } = req.body;
@@ -57,6 +66,9 @@ router.get('/:id', async (req, res) => {
   });
 });
 
+// PUT /users/:id
+// updates a user with given information in body
+// body json schema is the same as POST body
 router.put('/:id', async (req, res) => {
   const id = Number(req.params.id);
   const fields = req.body;
@@ -86,9 +98,8 @@ router.put('/:id', async (req, res) => {
   });
 });
 
-/**
- * Deletes the user with given id and all associated skills (cascade)
- */
+// DELETE /users/:id
+// Deletes the user with given id and all associated skills (cascade)
 router.delete('/:id', async (req, res) => {
   const id = Number(req.params.id);
   const user = await userService.findOne(id);
