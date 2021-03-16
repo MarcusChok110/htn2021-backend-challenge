@@ -2,6 +2,27 @@
 
 This is a REST API made with Express and SQLite for Hack the North's backend coding challenge. By default, the application is hosted locally at http://localhost:5000.
 
+### Project Structure
+
+---
+
+```
+src
+│---app.ts
+└───db
+└───models
+└───routes
+└───scripts
+└───services
+```
+
+- `app.ts` is the entry point of the application.
+- `db` contains the connection to the database.
+- `models` contains the models mapped to the tables of the database.
+- `routes` contains the endpoint controllers of the application.
+- `scripts` contains any scripts that can be executed.
+- `services` contains the business logic of the application.
+
 ### Users Endpoints
 
 ---
@@ -213,11 +234,10 @@ Notes:
 2. cd to the directory and `npm install` the dependencies:
 
 ```
-    "cors"
-    "dotenv"
-    "express"
-    "sequelize"
-    "sqlite3"
+    "cors"      - To control cross-origin requests
+    "express"   - To create the server
+    "sequelize" - To connect to database and act as ORM
+    "sqlite3"   - To connect to database
 ```
 
 3. Run `npm run dbpopulate` to create and populate the local SQLite database.
